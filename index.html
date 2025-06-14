@@ -1,182 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Heart love</title>
-  <style>
-  .display{
-    --width: 20rem;
-    --color: hsl(333 66% 75%);
-    --skew: 1rem;
-    --animation-duration: 10s;
-    aspect-ratio: 1/.5;
-    width: var(--width);
-    border-top-left-radius: 50% var(--skew);
-    border-top-right-radius: 50% var(--skew);
-    margin-top: 120px;
-    background:
-      radial-gradient( 100% 100%,
-        var(--color) calc(50% - 1px), #0000 calc(50% + 1px)
-      ) top center / 100% calc(var(--skew) * 2) no-repeat,
-      linear-gradient(  90deg,
-        color-mix(in oklch, var(--color), hsl(0 0% 100% / .75)),
-        #0000 40% 60%,
-        color-mix(in oklch, var(--color), hsl(0 0% 0% / .5))
-      ),
-      radial-gradient( 100% 100%,
-        color-mix(in oklch, var(--color), hsl(0 0% 20%)) calc(50% - 1px), #0000 calc(50% + 1px)
-      ) top center / 100% calc(var(--skew) * 2 + 7.5%) no-repeat,
-      repeating-linear-gradient(90deg,
-        #0000 0 1.25%, hsl(0 0% 0% / .125) 1.25% 2.5%
-      ) center left / 200% 100%,
-      var(--color);
-    box-shadow:
-      calc(var(--width) * .125) 
-      calc(var(--width) * .125) 
-      calc(var(--width) * .25) 
-      color-mix(in oklch, var(--color), hsl(0 0% 0% / .75));
-    animation: rotateBG calc(var(--animation-duration) / 2) linear infinite;
-    position: relative;
-  }
-
-  .display > svg {
-    color: #e60023;
-    position: absolute;
-    width: 80%;
-    left: 10%;
-    bottom: calc(100% - var(--skew));
-    animation: rotateItem var(--animation-duration) linear infinite;
-  }
-
-  @keyframes rotateItem { 
-    to { 
-      transform: rotateY(360deg); 
-    } 
-  }
-
-  @keyframes rotateBG { 
-    to { 
-      background-position: -100% 0; 
-    } 
-  }
-
-  html, body { 
-    height: 100%;
-  }
-
-  body { 
-    margin: 0; 
-    background: hsl(327, 90%, 92%);
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Catálogo de Ropa</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fafafa;
+    margin: 0;
+    padding: 40px 20px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
   }
-
-  h1 {
-    font-family: 'Arial', sans-serif;
-    font-size: 3em;
-    color: #ff69b4;
-    text-align: center;
-    margin-bottom: 20px;
+  .catalog {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    max-width: 960px;
+    width: 100%;
+  }
+  .item {
     position: relative;
-    animation: fadeIn 3s ease-in-out, colorChange 5s infinite;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
   }
-
-  h6 {
-    font-family: 'Arial', sans-serif;
-    font-size: 1.2em;
-    color: #ff69b4;
-    text-align: center;
-    margin: 20px auto 80px auto;
-    max-width: 800px;
-    line-height: 1.6;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
-    animation: fadeIn 4s ease-in-out;
+  .item:hover {
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.15);
   }
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      top: -20px;
-    }
-    100% {
-      opacity: 1;
-      top: 0;
-    }
+  .item img {
+    display: block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
   }
-
-  @keyframes colorChange {
-    0%, 100% {
-      color: #ff69b4;
-    }
-    25% {
-      color: #c63a3a;
-    }
-    50% {
-      color: #8a2be2;
-    }
-    75% {
-      color: #4b0082;
-    }
-  }
-
-  h1::before, h1::after {
-    content: '';
+  .info-hover {
     position: absolute;
-    top: 50%;
-    width: 50%;
-    height: 2px;
-    background: linear-gradient(to right, transparent, #ff69b4);
-    animation: slideIn 3s ease-in-out;
-  }
-
-  h1::before {
+    bottom: 0;
     left: 0;
-    transform: translateX(-100%);
-  }
-
-  h1::after {
     right: 0;
-    transform: translateX(100%);
+    background: rgba(17,17,17,0.85);
+    color: white;
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 1rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
   }
-
-  @keyframes slideIn {
-    0% {
-      transform: translateX(100%);
-    }
-    50% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
+  .item:hover .info-hover {
+    transform: translateY(0);
   }
-  </style>
+</style>
 </head>
 <body>
-<h1>Para mi querida dama:</h1>
-  <h6>
-    Feliz 6 meses mi amor, me gusta cómo piensas, me gusta tu sentir, me gustan tus orejas, me gusta tu nariz, me gusta tu belleza y cuando te ves feliz,<br>
-    me gusta tu mirada y lo que yo he visto ahí, me gusta que me dejas por irte a vivir sueños,<br>
-    me gusta tu cabeza y lo que sale de ahí, me gusta que me creas cuando te digo que yo creo en ti,<br>
-    me gusta lo que dices y cómo te ves diciéndolo, me gustan tus lunares y me gusta también tu cuello, me fui y me derretí...<br>
-    Me gusta que ahora puedas oír este poema, me gusta acompañarte y en cualquier parte, siempre estás tú,<br>
-    me gusta lo que sueñas, me encanta que te sueño, me gusta, aunque me duela, tu cicatriz en mí,<br>
-    me gusta tu existencia y el que te conocí, me gusta que este verso ya haya durado mucho,<br>
-    me gusta recordarte, me gusta saber de ti, no quiero molestarte... y olvidarte no puedo.<br>
-    Siempre te tengo en mí, me gusta estar contigo y siempre quiero tu sentir, te amo y siempre te amaré 💗💞💝💖💕💘
-  </h6>
-<div class="display">
-  <svg viewBox="0 0 100 92">
-    <path d="M8.57864 8.57864C20.0168 -2.85955 38.5618 -2.85955 50 8.57864C61.4382 -2.85955 79.9832 -2.85955 91.4214 8.57864C102.86 20.0168 102.86 38.5618 91.4214 50C91.4162 50.0052 91.411 50.0104 91.4058 50.0156L50 91.4213L8.59924 50.0206C8.59237 50.0137 8.58551 50.0069 8.57864 50C-2.85955 38.5618 -2.85955 20.0168 8.57864 8.57864Z" fill="currentcolor"/>
-  </svg>
-</div>
+  <div class="catalog">
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=400&q=80" alt="Camisa Blanca" />
+      <div class="info-hover">Info: Camisa Blanca - Precio $29.99</div>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=400&q=80" alt="Chaqueta Negra" />
+      <div class="info-hover">Info: Chaqueta Negra - Precio $79.99</div>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" alt="Pantalón Jeans" />
+      <div class="info-hover">Info: Pantalón Jeans - Precio $49.99</div>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1495121605193-b116b5b09a33?auto=format&fit=crop&w=400&q=80" alt="Vestido Rojo" />
+      <div class="info-hover">Info: Vestido Rojo - Precio $59.99</div>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1503342452485-86aa6b5b4a9a?auto=format&fit=crop&w=400&q=80" alt="Camisa Azul" />
+      <div class="info-hover">Info: Camisa Azul - Precio $27.99</div>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=400&q=80" alt="Sudadera Gris" />
+      <div class="info-hover">Info: Sudadera Gris - Precio $39.99</div>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1530845649936-1b6f8d1d8d54?auto=format&fit=crop&w=400&q=80" alt="Zapatos Negros" />
+      <div class="info-hover">Info: Zapatos Negros - Precio $89.99</div>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Sombrero Elegante" />
+      <div class="info-hover">Info: Sombrero Elegante - Precio $19.99</div>
+    </div>
+  </div>
 </body>
 </html>
